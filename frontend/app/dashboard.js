@@ -1,13 +1,23 @@
+// frontend/app/dashboard.js
+"use client"; // Required for client-side rendering
+
 import { useState, useEffect } from 'react';
 
-export default function Dashboard() {
+const Dashboard = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('http://localhost:4000/api/flask/users');
-            const result = await response.json();
-            setData(result);
+            try {
+                const response = await fetch('http://localhost:4000/api/flask/users');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setData(result);
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
         };
         
         fetchData();
@@ -22,7 +32,6 @@ export default function Dashboard() {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        {/* Agrega más encabezados según tus datos */}
                     </tr>
                 </thead>
                 <tbody>
@@ -31,11 +40,12 @@ export default function Dashboard() {
                             <td>{user.id}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
-                            {/* Agrega más celdas según tus datos */}
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
     );
-}
+};
+
+export default Dashboard;
