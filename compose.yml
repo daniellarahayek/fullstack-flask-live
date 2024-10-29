@@ -26,16 +26,16 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  # frontend:
-  #   container_name: frontend
-  #   image: frontend:1.0.0
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: frontend.dockerfile  # Asegúrate de que el nombre del Dockerfile sea correcto
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - flaskapp  # Asegúrate de que el frontend dependa del backend si es necesario
+  frontend:
+    container_name: frontend
+    image: frontend:1.0.0
+    build:
+      context: ./frontend
+      dockerfile: frontend.dockerfile  # Asegúrate de que el nombre del Dockerfile sea correcto
+    ports:
+      - "3000:3000"
+    depends_on:
+      - flaskapp  # Asegúrate de que el frontend dependa del backend si es necesario
 
 volumes:
   pgdata: {}
